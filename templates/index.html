@@ -1,0 +1,43 @@
+<html>
+<head>
+  <title>LoanEqualizer</title>
+  <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+  <link rel="stylesheet" href="../static/css/style.css" />
+</head>
+<body>
+
+  <ul id="test">
+    <li><a  class ="active"href="#" >LoanEqualizer</a></li>
+    <li><a  href="#">Home</a></li>
+    <li><a href="../static/signup.html" >Sign Up</a></li>
+    <li><a href="#">Log In</a></li>
+    <li><a id ="check" href="../static/loan.html" style="display: none" >Loans</a></li>
+
+  </ul>
+
+
+  <div id="login_div" class="main-div">
+    <h3 style>Welcome To LoanEqualizer</h3>
+    <h5> Please Log in </h5>
+    <input type="email" placeholder="Email..." id="email_field"  required>
+    <input type="password" placeholder="Password..." id="password_field"  required>
+
+    <button onclick="login()">Login to Account</button>
+    &nbsp;
+    <button onclick="window.location.href='../static/signup.html'">Create an Account</button>
+  </div>
+
+  <div id="user_div" class="loggedin-div">
+      <h3>Welcome To LoanEqualizer. You're currently logged in.</h3>
+      <p id="user_para"></p>
+      <button onclick="logout()">Logout</button>
+      &nbsp;
+      <button onclick="window.location.href='../static/loan.html'">My Loans</button>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+  
+    <script src="../static/js/firebase.js"></script>
+    <script src="../static/js/index.js"></script>
+
+</body>
+</html>

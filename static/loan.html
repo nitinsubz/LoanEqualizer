@@ -1,0 +1,185 @@
+<html>
+<head>
+  <title>LoanEqualizer</title>
+  <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <ul id="test">
+    <li><a  class ="active"href="#" >LoanEqualizer</a></li>
+    <li><a  href="#">Home</a></li>
+    <li><a href="signup.html" >Sign Up</a></li>
+    <li><a href="../">Log In</a></li>
+    <li><a id ="check" href ="#" style="display: block" >Loans</a></li>
+
+  </ul>
+
+
+  <div class="container"style="background-color:white ">
+      
+        <div class="row" >
+          <h2 style="text-align:center">Manage My Loans</h2>
+          
+          <div class="col" id="list_div" >
+           <!-- 
+            <a href="#" class="twitter btn">
+              Loan 1: <br><br>To: Mr. Jeff Bezos<br><br>Taken: 06/25/18 <br> <br>Amount: $25,300,032<br> <br><b style="color: #000000">This Loan Will Be Payed Back</b>
+  
+            </a>
+            <a href="#" class="google btn">
+               Loan 2: <br> <br>To: Mr. Mark Zuckerbeg<br><br>Taken: 06/25/18 <br> <br>Amount: $25,300,032<br> <br><b style="color: #000000">This Loan Will NOT Be Payed Back</b>
+            </a>
+            <a href="#" class="twitter btn">
+               Loan 3: <br><br>To: Mr. Scott DeRuiter<br><br>Taken: 06/25/18 <br> <br>Amount: $25,300,032<br> <br><b style="color: #000000"> Loan Will Be Payed Back</b>
+            </a>
+-->
+
+          </div>
+    
+          <div class="col" style="background-color: silver">
+              <h3>To create a loan, please enter the following information:</h3>
+              <input type="text" name="name" id = "name" placeholder="Full Name" >
+              <input type="number" name="amount" id= "amount"placeholder="Loan Amount" >
+              <input type="text" name="term" id="term"placeholder="Number of monthly payments on the loan" >
+              <input type="number" name="password" id ="rate"placeholder="Interest Rate (in percent)" >
+              <select id="len">
+                  <option  value="" disabled selected>Employment length in years. 0 to 10, 0 is less than a year; 10 is 10+ years.</option>
+                  <option >0</option>
+                  <option >1</option>
+                  <option >2</option>
+                  <option >3</option>
+                  <option >4</option>
+                  <option >5</option>
+                  <option >6</option>
+                  <option >7</option>
+                  <option >8</option>
+                  <option >9</option>
+                  <option >10</option>
+                </select>
+              <select id="home">
+                  <option value="" disabled selected>Home Ownership Status</option>
+                  <option >Rent</option>
+                  <option >Own</option>
+                  <option >Mortgage</option>
+                  <option >Other</option>
+                </select>
+              <input type="number" name="password" id ="inc"placeholder="Annual Income" >
+              <select id="plan">  
+                <option value="" disabled selected>Payment Plan</option>
+                <option >Yes</option>
+                <option >No</option>
+            </select>
+              <select id="purp">  
+                  <option value=""disabled selected>Purpose of the Loan Request</option>
+                  <option>credit_card</option>
+                  <option>car</option>
+                  <option>small_business</option>
+                  <option>wedding</option>
+                  <option>debt_consolidation</option>
+                  <option>home_improvement</option>
+                  <option>major_purchase</option>
+                  <option>medical</option>
+                  <option>moving</option>
+                  <option>vacation</option>
+                  <option>house</option>
+                  <option>renewable_energy</option>
+                  <option>educational</option>
+                  <option>other</option>
+              </select>
+              <input type="number" name="password" id ="dti"placeholder="Debt-to-Income (DTI) Ratio" >
+              <input type="number" name="password" id ="pub"placeholder="Number of derogatory public records" >
+              <input type="number" name="password" id ="rev"placeholder="Total credit revolving balance" >
+              <input type="number" name="password" id ="util"placeholder="Amount of the credit line used relative to total credit available" >
+              <input type="number" name="password" id ="d"placeholder="Amt. of due incidences of delinquency in the credit file for the past 2 years" >
+
+              <input type ="submit" id="predict" class ="predict" value="Create Loan">
+              <h3></h3>
+          </div>
+    
+        </div>
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    var name =1;// document.getElementById("name").value;
+    var amount = 90;//document.getElementById("amount").value;
+    var term = 1;//document.getElementById("term").value;
+    var rate = 1;//document.getElementById("rate").value;
+    var len = 1;//document.getElementById("len").value;
+    var home = 1;//document.getElementById("home").value;
+    var inc = 1;//document.getElementById("inc").value;
+    var plan =1;// document.getElementById("plan").value;
+    var purp = 1;//document.getElementById("purp").value;
+    var dti = 1;//document.getElementById("dti").value;
+    var pub = 1;//document.getElementById("pub").value;
+    var rev = 1;//document.getElementById("rev").value;
+    var util = 1;//document.getElementById("util").value;
+    var d = 1; //document.getElementById("d").value;
+        
+      $(".predict").click(function(){
+        db.collection("Loans").doc().set({
+        name: name,
+        amount: amount,
+        term: term,
+        rate: rate,
+        len: len,
+        home: home,
+        inc: inc,
+        plan: plan,
+        purp: purp,
+        dti: dti,
+        pub: pub,
+        rev: rev,
+        util: util,
+        d:d
+    })
+    .then(function() {
+        console.log("Document successfully written!");
+    })
+    .catch(function(error) {
+        console.error("Error writing document: ", error);
+    });
+
+        
+        var $SCRIPT_ROOT = "http://0.0.0.0:5000"
+        $.ajax({
+          type: "POST",
+          url: $SCRIPT_ROOT + "/predict/",
+          data: {n:name,a:amount,t:term,r:rate,l:len,h:home,i:inc,pl:plan,pu:purp,d:dti,p:pub,r:rev,u:util},
+          success: function(data){
+            alert(data);
+            const list_div = document.querySelector("#list_div");
+
+              db.collection("Loans").onSnapshot(function(querySnapshot) {
+                  querySnapshot.docChanges().forEach(function(change) {
+                      if(change.type === "added"){
+                          var text = list_div.innerHTML;
+                          if(data == 6) //if it is payed back use
+                              list_div.innerHTML =  "<a class='twitter btn'> To: " + change.doc.data().name + "<br><br>Amount: "  + change.doc.data().amount + " <br> <br>Term: " + change.doc.data().term +  "<br><br>Rate: "+ change.doc.data().rate+ "<br><br>Length: " +change.doc.data().len +  "<br><br>Home Ownership Status: "  + change.doc.data().home + "<br><br>Annual Income: "  + change.doc.data().inc + " <br> <br>Payment Plan: " + change.doc.data().plan +  "<br><br>Purpose Of Loan: "+ change.doc.data().purp+ "<br><br>DTI: " +change.doc.data().dti +  "<br><br>Derogatory Public Records: "  + change.doc.data().pub +   "<br><br> Total credit revolving balance: "  + change.doc.data().rev + "<br><br> Util: "  + change.doc.data().util +"<br> <br><b style='color: #000000'> Loan Will Be Payed Back</b></a>" + text;
+                          else  if(data == 7){ //if it isnt payed back use this
+
+                              list_div.innerHTML = "<a class='google btn'> To: " + change.doc.data().name + "<br><br>Amount: "  + change.doc.data().amount + " <br> <br>Term: " + change.doc.data().term +  "<br><br>Rate: "+ change.doc.data().rate+ "<br><br>Length: " +change.doc.data().len +  "<br><br>Home Ownership Status: "  + change.doc.data().home + "<br><br>Annual Income: "  + change.doc.data().inc + " <br> <br>Payment Plan: " + change.doc.data().plan +  "<br><br>Purpose Of Loan: "+ change.doc.data().purp+ "<br><br>DTI: " +change.doc.data().dti +  "<br><br>Derogatory Public Records: "  + change.doc.data().pub +  "<br><br> Total credit revolving balance: "  + change.doc.data().rev + "<br><br> Util: "  + change.doc.data().util +"<br> <br><b style='color: #000000'> Loan Will NOT Be Payed Back</b></a>" + text;
+                          }
+                      }
+                  });
+              });
+            
+          }
+        });
+
+
+      });
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-firestore.js"></script>
+  
+    <script src="js/firebase.js"></script>
+    <script src="js/fire.js"></script>
+    <script src="js/index.js"></script>
+
+
+
+
+</body>
+</html>
