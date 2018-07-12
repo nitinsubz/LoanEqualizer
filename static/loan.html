@@ -39,7 +39,7 @@
     
           <div class="col" style="background-color: silver">
               <h3>To create a loan, please enter the following information:</h3>
-              <input type="text" name="name" id = "name" placeholder="Full Name" >
+              <input type="text" name="name" id = "name" placeholder="ID" >
               <input type="number" name="amount" id= "amount"placeholder="Loan Amount" >
               <input type="text" name="term" id="term"placeholder="Number of monthly payments on the loan" >
               <input type="number" name="password" id ="rate"placeholder="Interest Rate (in percent)" >
@@ -91,7 +91,7 @@
               <input type="number" name="password" id ="pub"placeholder="Number of derogatory public records" >
               <input type="number" name="password" id ="rev"placeholder="Total credit revolving balance" >
               <input type="number" name="password" id ="util"placeholder="Amount of the credit line used relative to total credit available" >
-              <input type="number" name="password" id ="d"placeholder="Amt. of due incidences of delinquency in the credit file for the past 2 years" >
+              <input type="text" name="password" id ="del"placeholder="Amt. of due incidences of delinquency in the credit file for the past 2 years" >
 
               <input type ="submit" id="predict" class ="predict" value="Create Loan">
               <h3></h3>
@@ -130,8 +130,8 @@
         dti: dti,
         pub: pub,
         rev: rev,
-        util: util,
-        d:d
+        util: util
+        //de: del
     })
     .then(function() {
         console.log("Document successfully written!");
@@ -145,7 +145,7 @@
         $.ajax({
           type: "POST",
           url: $SCRIPT_ROOT + "/predict/",
-          data: {n:name,a:amount,t:term,r:rate,l:len,h:home,i:inc,pl:plan,pu:purp,d:dti,p:pub,r:rev,u:util},
+          data: {a:amount,t:term,ra:rate,l:len,h:home,i:inc,pl:plan,pu:purp,d:dti,p:pub,re:rev,u:util},
           success: function(data){
             alert(data);
             const list_div = document.querySelector("#list_div");
