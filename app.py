@@ -6,16 +6,19 @@
 
 from flask import Flask, render_template,request
 import numpy as np
-import keras.models
+import pickle
+#import keras.models
 import os
-from keras.models import model_from_json
-import tensorflow as tf 
+#from keras.models import model_from_json
+#mport tensorflow as tf 
 # Model reconstruction from JSON file
-from keras.models import load_model
-model = load_model('/Applications/XAMPP/xamppfiles/htdocs/loanz/loanmodel.h5')
+from sklearn.ensemble import RandomForestClassifier
 
-global graph
-graph = tf.get_default_graph()
+with open('loantree.pkl','rb') as f:
+    model=pickle.load(f)
+
+#global graph
+#graph = tf.get_default_graph()
 
 # In[198]:
 
@@ -57,19 +60,17 @@ def predict():
             temp+=s
 
     data.append(float(temp[0:len(temp)-1]))
-    data=np.array([data])
+    data=[data]
     
     #print(str(rawdata).count('1'))
     #print(rawdata)
     
-    with graph.as_default():
-        pred=model.predict(data)[0][0]
+    #with graph.as_default():
+    pred=model.predict_proba(data)[0]
     print(pred)
-    if pred>0.5:
-        return str(1)
-    else:
+    if pred[0]>0.5:
         return str(0)
-
+    return str(1)
 
 # In[201]:
 
