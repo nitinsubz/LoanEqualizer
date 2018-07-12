@@ -39,6 +39,7 @@ def index():
 
 @app.route('/predict/',methods=['GET','POST'])
 def predict():
+    print("hey i jusy met you and this is crazy but heres my number so call me maybe. Its hard to look right at you baaaaby but heres my number so call me maybe")
     rawdata=request.get_data()
     data=[]
 
@@ -57,7 +58,6 @@ def predict():
             temp+=s
 
     data.append(float(temp[0:len(temp)-1]))
-    data.insert(9,0)
     data=np.array([data])
     
     #print(str(rawdata).count('1'))

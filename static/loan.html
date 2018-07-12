@@ -91,7 +91,6 @@
               <input type="number" name="password" id ="pub"placeholder="Number of derogatory public records" >
               <input type="number" name="password" id ="rev"placeholder="Total credit revolving balance" >
               <input type="number" name="password" id ="util"placeholder="Amount of the credit line used relative to total credit available" >
-              <input type="text" name="password" id ="del"placeholder="Amt. of due incidences of delinquency in the credit file for the past 2 years" >
 
               <input type ="submit" id="predict" class ="predict" value="Create Loan">
               <h3></h3>
@@ -101,22 +100,23 @@
     </div>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
-    var name =1;// document.getElementById("name").value;
-    var amount = 90;//document.getElementById("amount").value;
-    var term = 1;//document.getElementById("term").value;
-    var rate = 1;//document.getElementById("rate").value;
-    var len = 1;//document.getElementById("len").value;
-    var home = 1;//document.getElementById("home").value;
-    var inc = 1;//document.getElementById("inc").value;
-    var plan =1;// document.getElementById("plan").value;
-    var purp = 1;//document.getElementById("purp").value;
-    var dti = 1;//document.getElementById("dti").value;
-    var pub = 1;//document.getElementById("pub").value;
-    var rev = 1;//document.getElementById("rev").value;
-    var util = 1;//document.getElementById("util").value;
-    var d = 1; //document.getElementById("d").value;
+    
+    var name = document.getElementById("name").value;
+    var amount = document.getElementById("amount").value;
+    var term = document.getElementById("term").value;
+    var rate = document.getElementById("rate").value;
+    var len = document.getElementById("len").value;
+    var home = document.getElementById("home").value;
+    var inc = document.getElementById("inc").value;
+    var plan = document.getElementById("plan").value;
+    var purp = document.getElementById("purp").value;
+    var dti = document.getElementById("dti").value;
+    var pub =document.getElementById("pub").value;
+    var rev = document.getElementById("rev").value;
+    var util = document.getElementById("util").value;
         
       $(".predict").click(function(){
+        var db = firebase.firestore();
         db.collection("Loans").doc().set({
         name: name,
         amount: amount,
@@ -131,8 +131,7 @@
         pub: pub,
         rev: rev,
         util: util
-        //de: del
-    })
+   })
     .then(function() {
         console.log("Document successfully written!");
     })
@@ -154,9 +153,9 @@
                   querySnapshot.docChanges().forEach(function(change) {
                       if(change.type === "added"){
                           var text = list_div.innerHTML;
-                          if(data == 6) //if it is payed back use
+                          if(data == 0) //if it is payed back use
                               list_div.innerHTML =  "<a class='twitter btn'> To: " + change.doc.data().name + "<br><br>Amount: "  + change.doc.data().amount + " <br> <br>Term: " + change.doc.data().term +  "<br><br>Rate: "+ change.doc.data().rate+ "<br><br>Length: " +change.doc.data().len +  "<br><br>Home Ownership Status: "  + change.doc.data().home + "<br><br>Annual Income: "  + change.doc.data().inc + " <br> <br>Payment Plan: " + change.doc.data().plan +  "<br><br>Purpose Of Loan: "+ change.doc.data().purp+ "<br><br>DTI: " +change.doc.data().dti +  "<br><br>Derogatory Public Records: "  + change.doc.data().pub +   "<br><br> Total credit revolving balance: "  + change.doc.data().rev + "<br><br> Util: "  + change.doc.data().util +"<br> <br><b style='color: #000000'> Loan Will Be Payed Back</b></a>" + text;
-                          else  if(data == 7){ //if it isnt payed back use this
+                          else  if(data == 1){ //if it isnt payed back use this
 
                               list_div.innerHTML = "<a class='google btn'> To: " + change.doc.data().name + "<br><br>Amount: "  + change.doc.data().amount + " <br> <br>Term: " + change.doc.data().term +  "<br><br>Rate: "+ change.doc.data().rate+ "<br><br>Length: " +change.doc.data().len +  "<br><br>Home Ownership Status: "  + change.doc.data().home + "<br><br>Annual Income: "  + change.doc.data().inc + " <br> <br>Payment Plan: " + change.doc.data().plan +  "<br><br>Purpose Of Loan: "+ change.doc.data().purp+ "<br><br>DTI: " +change.doc.data().dti +  "<br><br>Derogatory Public Records: "  + change.doc.data().pub +  "<br><br> Total credit revolving balance: "  + change.doc.data().rev + "<br><br> Util: "  + change.doc.data().util +"<br> <br><b style='color: #000000'> Loan Will NOT Be Payed Back</b></a>" + text;
                           }
