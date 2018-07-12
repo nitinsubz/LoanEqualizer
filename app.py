@@ -12,7 +12,7 @@ from keras.models import model_from_json
 import tensorflow as tf 
 # Model reconstruction from JSON file
 from keras.models import load_model
-model = load_model('loanModel.h5')
+model = load_model('/Applications/XAMPP/xamppfiles/htdocs/loanz/loanmodel.h5')
 
 global graph
 graph = tf.get_default_graph()
@@ -39,7 +39,6 @@ def index():
 
 @app.route('/predict/',methods=['GET','POST'])
 def predict():
-    print("hey i jusy met you and this is crazy but heres my number so call me maybe. Its hard to look right at you baaaaby but heres my number so call me maybe")
     rawdata=request.get_data()
     data=[]
 
@@ -65,6 +64,7 @@ def predict():
     
     with graph.as_default():
         pred=model.predict(data)[0][0]
+    print(pred)
     if pred>0.5:
         return str(1)
     else:
