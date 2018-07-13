@@ -1,9 +1,3 @@
-
-# coding: utf-8
-
-# In[197]:
-
-
 from flask import Flask, render_template,request
 import numpy as np
 import pickle
@@ -42,6 +36,7 @@ def index():
 
 @app.route('/predict/',methods=['GET','POST'])
 def predict():
+    global countz
     rawdata=request.get_data()
     data=[]
 
@@ -71,8 +66,8 @@ def predict():
     if pred[0]>0.5:
         return str(0)
     return str(1)
-
-# In[201]:
+    
+# In[201]:  
 
 
 if __name__ == '__main__':
